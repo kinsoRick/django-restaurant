@@ -1,0 +1,434 @@
+<div class="modal fade"
+     id="changePositionModal"
+     tabindex="-1"
+     aria-labelledby="changePositionLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="changePositionLabel">Изменить позицию</h1>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="positionEditForm">
+          {% csrf_token %}
+          <input type="hidden"
+                 class="form-control"
+                 id="id_id_position_edit"
+                 name="id"
+                 value="" />
+          <div class="mb-3">
+            <label for="id_name_position_edit" class="form-label">Имя позиции</label>
+            <input type="text"
+                   class="form-control"
+                   id="id_name_position_edit"
+                   name="name"
+                   value="" />
+          </div>
+          <div class="mb-3">
+            <label for="id_image_position_edit" class="form-label">Изображение</label>
+            <input type="file"
+                   class="form-control"
+                   id="id_image_position_edit"
+                   name="image"
+                   accept="image/*" />
+          </div>
+          <div class="mb-3">
+            <label for="id_description_position_edit" class="form-label">Описание</label>
+            <textarea class="form-control"
+                      id="id_description_position_edit"
+                      name="description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="id_price_position_edit" class="form-label">Цена (в рублях)</label>
+            <input type="text"
+                   class="form-control"
+                   id="id_price_position_edit"
+                   name="price"
+                   value="" />
+          </div>
+          <div class="mb-3">
+            <label for="id_weight_position_edit" class="form-label">Вес и измерения (100мл)</label>
+            <input type="text"
+                   class="form-control"
+                   id="id_weight_position_edit"
+                   name="weight"
+                   value="" />
+          </div>
+          <div class="mb-3">
+            <label for="id_cooking_time_position_edit" class="form-label">Время готовки (в минутах)</label>
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   id="id_cooking_time_position_edit"
+                   name="cooking_time"
+                   value="" />
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox"
+                   class="form-check-input"
+                   id="id_is_new_position_edit"
+                   name="is_new" />
+            <label class="form-check-label" for="id_is_new_position_edit">Новая позиция?</label>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox"
+                   class="form-check-input"
+                   id="id_active_position_edit"
+                   name="is_active" />
+            <label class="form-check-label" for="id_active_position_edit">Позиция активна?</label>
+          </div>
+          <!-- Spiciness -->
+          <div class="mb-3">
+            <label for="id_spiciness_position_edit" class="form-label">Острота</label>
+            <select class="form-select" id="id_spiciness_position_edit" name="spiciness">
+              <option value="Не острая">Не острая</option>
+              <option value="Незначительно">Незначительно</option>
+              <option value="Средне">Средне</option>
+              <option value="Острое">Острое</option>
+              <option value="Очень острое">Очень острое</option>
+            </select>
+          </div>
+          <!-- Subcategory -->
+          <div class="mb-3">
+            <label for="id_subcategory_position_edit" class="form-label">Подкатегория</label>
+            <select class="form-select"
+                    id="id_subcategory_position_edit"
+                    name="subcategory">
+              {% for subcategory in subcategories %}
+                <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <!-- Priority -->
+          <div class="mb-3">
+            <label for="id_priority_position_edit" class="form-label">Приоритет</label>
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   id="id_priority_position_edit"
+                   name="priority"
+                   value="" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                onclick="submitFormEdit(this)">Отправить</button>
+        <button type="submit"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+                onclick="submitDeletion()">Удалить</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade"
+     id="createPositionModal"
+     tabindex="-1"
+     aria-labelledby="createPositionLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createPositionLabel">Добавить позицию</h1>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="positionCreateForm">
+          {% csrf_token %}
+          <input type="hidden"
+                 class="form-control"
+                 id="id_id_position_create"
+                 name="id"
+                 value="" />
+          <div class="mb-3">
+            <label for="id_name_position_create" class="form-label">Имя позиции</label>
+            <input type="text"
+                   class="form-control"
+                   id="id_name_position_create"
+                   name="name"
+                   value="" />
+          </div>
+          <div class="mb-3">
+            <label for="id_image_position_create" class="form-label">Изображение</label>
+            <input type="file"
+                   class="form-control"
+                   id="id_image_position_create"
+                   name="image"
+                   accept="image/*" />
+          </div>
+          <div class="mb-3">
+            <label for="id_description_position_create" class="form-label">Описание</label>
+            <textarea class="form-control"
+                      id="id_description_position_create"
+                      name="description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="id_price_position_create" class="form-label">Цена (в рублях)</label>
+            <input type="text"
+                   class="form-control"
+                   id="id_price_position_create"
+                   name="price"
+                   value="" />
+          </div>
+          <div class="mb-3">
+            <label for="id_weight_position_create" class="form-label">Вес и измерения (100мл)</label>
+            <input type="text"
+                   class="form-control"
+                   id="id_weight_position_create"
+                   name="weight"
+                   value="" />
+          </div>
+          <div class="mb-3">
+            <label for="id_cooking_time_position_create" class="form-label">Время готовки (в минутах)</label>
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   id="id_cooking_time_position_create"
+                   name="cooking_time"
+                   value="" />
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox"
+                   class="form-check-input"
+                   id="id_is_new_position_create"
+                   name="is_new" />
+            <label class="form-check-label" for="id_is_new_position_create">Новая позиция?</label>
+          </div>
+          <!-- Spiciness -->
+          <div class="mb-3">
+            <label for="id_spiciness_position_create" class="form-label">Острота</label>
+            <select class="form-select"
+                    id="id_spiciness_position_create"
+                    name="spiciness">
+              <option value="Не острая">Не острая</option>
+              <option value="Незначительно">Не острая</option>
+              <option value="Средне">Средне</option>
+              <option value="Острое">Острое</option>
+              <option value="Не острая">Очень острое</option>
+            </select>
+          </div>
+          <!-- Subcategory -->
+          <div class="mb-3">
+            <label for="id_subcategory_position_create" class="form-label">Подкатегория</label>
+            <select class="form-select"
+                    id="id_subcategory_position_create"
+                    name="subcategory">
+              {% for subcategory in subcategories %}
+                <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <!-- Priority -->
+          <div class="mb-3">
+            <label for="id_priority_position_create" class="form-label">Приоритет</label>
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   id="id_priority_position_create"
+                   name="priority"
+                   value="" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+                onclick="submitFormCreation()">Добавить</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade"
+     id="changeSubCategoryModal"
+     tabindex="-1"
+     aria-labelledby="changeSubCategoryLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="changeSubCategoryLabel">Изменить Подкатегорию</h1>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="subcategoryChangeForm">
+          {% csrf_token %}
+          <input disabled
+                 type="hidden"
+                 class="form-control"
+                 name="id"
+                 id="id_id_subcategory_edit"
+                 value="" />
+          <div class="mb-3">
+            <label for="id_name_subcategory_edit" class="form-label">Имя подкатегрии</label>
+            <input type="text"
+                   class="form-control"
+                   id="id_name_subcategory_edit"
+                   name="name"
+                   value="" />
+          </div>
+          <!-- Priority -->
+          <div class="mb-3">
+            <label for="id_priority_subcategory_edit" class="form-label">Приоритет</label>
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   id="id_priority_subcategory_edit"
+                   name="priority"
+                   value="" />
+          </div>
+          <div class="mb-3">
+            <label for="id_category_subcategory_edit" class="form-label">Категория</label>
+            <input disabled
+                   type="text"
+                   class="form-control"
+                   id="id_category_subcategory_edit"
+                   value="" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                onclick="submitSubcategoryEdit()">Изменить</button>
+        <button type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+                onclick="submitSubcategoryDeletion()">Удалить</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade"
+     id="createSubCategoryModal"
+     tabindex="-1"
+     aria-labelledby="createSubCategoryLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createSubCategoryLabel">Cоздать Подкатегорию</h1>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="subcategoryCreateForm">
+          {% csrf_token %}
+          <input disabled
+                 type="hidden"
+                 class="form-control"
+                 name="id"
+                 id="id_id_subcategory_create"
+                 value="" />
+          <div class="mb-3">
+            <label for="id_name_subcategory_create" class="form-label">Имя подкатегории</label>
+            <input type="text"
+                   class="form-control"
+                   id="id_name_subcategory_create"
+                   name="name"
+                   value="" />
+          </div>
+          <!-- Priority -->
+          <div class="mb-3">
+            <label for="id_priority_subcategory_create" class="form-label">Приоритет</label>
+            <input type="number"
+                   class="form-control"
+                   min="0"
+                   id="id_priority_subcategory_create"
+                   name="priority"
+                   value="" />
+          </div>
+          <div class="mb-3">
+            <label for="id_category_subcategory_create" class="form-label">Категория</label>
+            <select type="text"
+                    class="form-control disabled"
+                    readonly
+                    id="id_category_subcategory_create"
+                    name="category"
+                    value="{{ category.id }}">
+              {% for categoryGet in categories %}
+                {% if categoryGet.id == category.id %}
+                  <option value="{{ categoryGet.id }}" selected>{{ categoryGet.name }}</option>
+                {% else %}
+                  <option value="{{ categoryGet.id }}" disabled>{{ categoryGet.name }} (нельзя поменять категорию)</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+                onclick="submitSubcategoryCreate()">Добавить</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade"
+     id="changeCategoryModal"
+     tabindex="-1"
+     aria-labelledby="changeCategoryLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="changeCategoryLabel">Изменить категорию</h1>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="categoryChangeForm">
+          {% csrf_token %}
+          <input type="hidden"
+                 class="form-control"
+                 name="id"
+                 id="id_id_category_edit"
+                 value="{{ category.id }}" />
+          <div class="mb-3">
+            <label for="id_name_category_edit" class="form-label">Имя Категории</label>
+            <input type="text"
+                   class="form-control"
+                   id="id_name_category_edit"
+                   name="name"
+                   value="{{ category.name }}" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-primary"
+                onclick="submitCategoryChange()"
+                data-bs-dismiss="modal">Изменить</button>
+        <button type="button"
+                class="btn btn-danger"
+                onclick="submitСategoryDeletion()"
+                data-bs-dismiss="modal">Удалить</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>

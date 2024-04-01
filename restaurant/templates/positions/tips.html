@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row">
+      {% for tip in tips %}
+        <div class="col col-6 col-lg-3 px-1 cursor-pointer"
+             id="tip-{{ tip.id }}"
+             data-bs-toggle="modal"
+             data-bs-target="#tipModal"
+             data-name="{{ tip.name }}"
+             data-card="{{ tip.card_number }}"
+             data-link="{{ tip.payment_link }}"
+             data-id="{{ tip.id }}"
+             {% if tip.photo %}data-photo="{{ tip.photo.url }}"{% endif %}
+             onclick="fillInfoModal(this)">
+          <div class="category">
+            <a href="#">
+              <div>
+                <img width="640"
+                     height="640"
+                     style="background: #1b1d1a"
+                     src=" {% if tip.photo %} {{ tip.photo.url }}  {% else %} /static/images/no_image.svg {% endif %} "
+                     class="card-img-top h-auto"
+                     loading="lazy"
+                     alt="{{ tip.name }}" />
+                <div class="category-name">
+                  <span>{{ tip.name }}</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+      {% if user.is_superuser %}
+        <div class="col col-6 col-lg-3 px-1"
+             data-bs-toggle="modal"
+             data-bs-target="#createTipModal">
+          <div class="category">
+            <a href="#">
+              <div>
+                <img width="640" height="640" class="plus-icon" alt="{{ category.name }}" />
+                <div class="category-name">
+                  <span>Добавить данные человека</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %}
+{% block modal %}
+  <div class="modal fade"
+       id="tipModal"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="tipModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="tipModalLabel">Информация для оплаты</h5>
+        </div>
+        <div class="modal-body" id="modalContent">
+          <h2>
+            Карта: <span id="card-number-modal"></span>
+          </h2>
+          <a id="payment-link-modal" class="btn btn-primary">Перевести по кнопке</a>
+        </div>
+        <div class="modal-footer">
+          {% if user.is_superuser %}
+            <button class="btn btn-danger"
+                    id="delete-btn-tip"
+                    data-tip-id=""
+                    onclick="submitDeleteTip(this)"
+                    data-bs-dismiss="modal">Удалить</button>
+          {% endif %}
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade"
+       id="createTipModal"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="tipModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createTipModalLabel">Добавить данные человека</h5>
+        </div>
+        <div class="modal-body">
+          <form id="tipCreateForm">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="id_name_tip" class="form-label">Имя человека</label>
+              <input type="text"
+                     class="form-control"
+                     id="id_name_tip"
+                     name="name"
+                     value="" />
+            </div>
+            <div class="mb-3">
+              <label for="id_image_position_create" class="form-label">Изображение</label>
+              <input type="file"
+                     class="form-control"
+                     id="id_image_position_create"
+                     name="photo"
+                     accept="image/*" />
+            </div>
+            <div class="mb-3">
+              <label for="id_card_number_tip" class="form-label">Номер карты</label>
+              <input type="text"
+                     class="form-control"
+                     id="id_card_number_tip"
+                     name="card_number"
+                     value="" />
+            </div>
+            <div class="mb-3">
+              <label for="id_payment_link_tip" class="form-label">Ссылка для переводы</label>
+              <input type="text"
+                     class="form-control"
+                     id="id_payment_link_tip"
+                     name="payment_link"
+                     value="" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" onclick="submitTip()" data-bs-dismiss="modal">Добавить</button>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock modal %}
+{% block inline_javascript %}
+  <script>
+    function fillInfoModal(element) {
+      console.log(element.dataset);
+
+      const paymentLink = document.getElementById("payment-link-modal");
+      const cardNumber = document.getElementById("card-number-modal");
+      {
+        %
+        if user.is_superuser %
+      }
+      const deleteBtnTip = document.getElementById("delete-btn-tip");
+
+      deleteBtnTip.dataset.tipId = element.dataset.id;
+      {
+        %
+        endif %
+      }
+
+      if (element.dataset.link != "None") {
+        paymentLink.href = element.dataset.link;
+      } else {
+        paymentLink.remove()
+      }
+      if (element.dataset.card != "None") {
+        cardNumber.textContent = element.dataset.card;
+      } else {
+        cardNumber.textContent = "Нету данных."
+      }
+    }
+
+    function submitTip() {
+      const form = document.getElementById("tipCreateForm");
+      const formData = new FormData(form);
+
+      if (formData.get("photo").size === 0) formData.delete("photo");
+
+      fetch(`${window.location.origin}/api/tips/`, {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          location.reload();
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+    }
+
+    function submitDeleteTip(element) {
+      fetch(`${window.location.origin}/api/tips/${element.dataset.tipId}`, {
+          method: "DELETE",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+        })
+        .then(data => {
+          location.reload();
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+    }
+  </script>
+{% endblock inline_javascript %}

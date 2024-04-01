@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags static compress %}
+
+{% block javascript_page %}
+  {% if user.is_superuser %}
+    {% compress js %}
+      <script defer src="{% static 'js/forms.js' %}"></script>
+    {% endcompress %}
+  {% endif %}
+{% endblock javascript_page %}
+{% block content %}
+  <div class="d-flex justify-content-center">
+    <div class="subcategories">
+      <nav id="subcategories-navbar"
+           class="navbar navbar-light navbar-expand-md bg-light sticky-top bg-body-tertiary px-3 mb-3">
+        <ul class="nav nav-pills">
+          {% for subcategory in subcategories|dictsort:"priority" %}
+            <li class="nav-item">
+              <a class="nav-link subcategory-nav"
+                 href="#scrollspy-{{ subcategory.id }}">{{ subcategory.name }}</a>
+            </li>
+          {% endfor %}
+          {% if user.is_superuser %}
+            <li class="nav-item cursor-pointer"
+                data-bs-toggle="modal"
+                onclick="fillCreateSubcategoryForm('{{ category.name }}')"
+                data-bs-target="#createSubCategoryModal">
+              <a class="nav-link text-success subcategory-nav align-items-center d-flex cursor-pointer">
+                Добавить новую категорию
+                <span class="material-icons ml-5px">add</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+      <div class="container">
+        <h1>
+          {{ category.name }}
+          {% if user.is_superuser %}
+            <div class="edit-icon"
+                 data-bs-toggle="modal"
+                 data-bs-target="#changeCategoryModal">
+              <span class="material-icons">edit</span>
+            </div>
+          {% endif %}
+        </h1>
+        <!-- Выведите информацию о категории, субкатегориях, позициях и т.д. -->
+        <div data-bs-spy="scroll"
+             data-bs-target="#subcategories-navbar"
+             data-bs-root-margin="0px 0px -50%"
+             data-bs-smooth-scroll="true"
+             class="scrollspy bg-body-tertiary p-3 rounded-2">
+          {% for subcategory in subcategories|dictsort:"priority" %}
+            <div class="subcategory-body" id="scrollspy-{{ subcategory.id }}">
+              <h3 class="d-flex">
+                {{ subcategory.name }}
+                {% if user.is_superuser %}
+                  <div class="edit-icon d-flex"
+                       data-bs-toggle="modal"
+                       data-bs-target="#changeSubCategoryModal"
+                       onclick="fillSubcategoryEditForm('{{ subcategory.name }}', {{ subcategory.priority }}, '{{ subcategory.category }}', {{ subcategory.id }})">
+                    <span class="material-icons ml-5px">edit</span>
+                  </div>
+                {% endif %}
+              </h3>
+              <div class="row item-row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4">
+                {% for position in positions|dictsort:"priority" %}
+                  {% if position.subcategory == subcategory %}
+                    <div class="card mb-3 position {% if position.is_active == False and user.is_superuser == False %}d-none{% endif %}"
+                         id="position-{{ position.id }}"
+                         style="max-width: 540px"
+                         data-position-name="{{ position.name }}"
+                         data-position-priority="{{ position.priority }}"
+                         data-position-subcategory="{{ position.subcategory.id }}"
+                         data-position-spiciness="{{ position.spiciness }}"
+                         data-position-cooking-time="{{ position.cooking_time }}"
+                         data-position-weight="{{ position.weight }}"
+                         data-position-price="{{ position.price }}"
+                         data-position-description="{{ position.description }}"
+                         data-position-is-new="{{ position.is_new }}"
+                         data-position-id="{{ position.id }}"
+                         data-position-active="{{ position.is_active }}">
+                      <div class="row g-0">
+                        <div class="col-4 col-sm-4 {% if position.is_new %}thumb-card new-menu-item{% endif %} d-md-none">
+                          <img src="{% if position.image %}{{ position.image.url }}{% else %}/static/images/no_image.svg{% endif %}"
+                               class="img-fluid rounded-start thumbnail"
+                               data-position-id="#position-{{ position.id }}"
+                               alt="..." />
+                        </div>
+                        <div class="col-md-12 position-image d-md-block {% if position.is_new %}new-menu-item{% endif %}">
+                          <img src="{% if position.image %}{{ position.image.url }}{% else %}/static/images/no_image.svg{% endif %}"
+                               class="img-fluid"
+                               data-position-id="#position-{{ position.id }}"
+                               alt="..." />
+                        </div>
+                        <div class="col-8 col-sm-8 col-md-12 position-text">
+                          <div class="card-body px-md-0 ">
+                            <div class="position-header">
+                              <h5 class="card-title">
+                                {{ position.name }}
+                                {% if position.is_active == False and user.is_superuser == True %}
+                                  <span class="text-danger">(Не активна)</span>
+                                {% endif %}
+                              </h5>
+                              {% if user.is_superuser %}
+                                <div class="edit-icon"
+                                     data-bs-toggle="modal"
+                                     onclick="fillEditForm({{ position.id }})"
+                                     data-bs-target="#changePositionModal">
+                                  <span class="material-icons">edit</span>
+                                </div>
+                              {% else %}
+                                <button class="like-btn"
+                                        onclick="toggleLike(this);"
+                                        data-position-id="{{ position.id }}">
+                                  {% if position.liked %}
+                                    <span class="material-icons active">favorite</span>
+                                  {% else %}
+                                    <span class="material-icons">favorite_border</span>
+                                  {% endif %}
+                                </button>
+                              {% endif %}
+                            </div>
+                            <div class="position-additionals">
+                              {% if position.weight|length > 0 %}
+                                <span class="bg-weight badge text-dark position-weight">{{ position.weight }}</span>
+                              {% endif %}
+                              {% if position.cooking_time > 0 %}
+                                <span class="text-dark time ml-auto"><span class="material-icons">schedule</span>{{ position.cooking_time }} минут.</span>
+                              {% endif %}
+                            </div>
+                            {% if position.description != "" %}<p class="card-text">{{ position.description }}</p>{% endif %}
+                            {% if position.spiciness != "Не острая" %}
+                              <div class="spicy-wrapper">
+                                {% if position.spiciness == "Незначительно" %}
+                                  <span class="spicy-icon" title="Незначительно"></span>
+                                  <span class="no-spicy-icon" title="Незначительно"></span>
+                                  <span class="no-spicy-icon" title="Незначительно"></span>
+                                  <span class="no-spicy-icon" title="Незначительно"></span>
+                                {% endif %}
+                                {% if position.spiciness == "Средне" %}
+                                  <span class="spicy-icon" title="Средне"></span>
+                                  <span class="spicy-icon" title="Средне"></span>
+                                  <span class="no-spicy-icon" title="Средне"></span>
+                                  <span class="no-spicy-icon" title="Средне"></span>
+                                {% endif %}
+                                {% if position.spiciness == "Острое" %}
+                                  <span class="spicy-icon" title="Острое"></span>
+                                  <span class="spicy-icon" title="Острое"></span>
+                                  <span class="spicy-icon" title="Острое"></span>
+                                  <span class="no-spicy-icon" title="Острое"></span>
+                                {% endif %}
+                                {% if position.spiciness == "Очень острое" %}
+                                  <span class="spicy-icon" title="Очень острое"></span>
+                                  <span class="spicy-icon" title="Очень острое"></span>
+                                  <span class="spicy-icon" title="Очень острое"></span>
+                                  <span class="spicy-icon" title="Очень острое"></span>
+                                {% endif %}
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                          {% if position.price|length > 0 %}
+                            <span class="position-price">{{ position.price }}</span>
+                            <small class="position-currency">руб.</small>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+                {% if user.is_superuser %}
+                  <div class="col col-12 col-md-2 px-5 py-5 category-wrapper"
+                       data-bs-toggle="modal"
+                       onclick="fillCreateForm({{ subcategory.id }})"
+                       data-bs-target="#createPositionModal">
+                    <div class="category">
+                      <a href="#">
+                        <div>
+                          <img alt="..." width="640" height="640" class="plus-icon" />
+                          <div class="category-name">
+                            <span>Добавить позицию</span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block modal %}
+  {% if user.is_superuser %}
+    {% include 'modal.html' %}
+  {% endif %}
+{% endblock modal %}
+{% block inline_javascript %}
+{% endblock inline_javascript %}

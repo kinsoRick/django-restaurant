@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Доступ запрещён (403)
+{% endblock title %}
+{% block content %}
+  <h1>Доступ запрещён (403)</h1>
+  <p>
+    {% if exception %}
+      {{ exception }}
+    {% else %}
+      Вы не можете просмотреть данную страницу!
+    {% endif %}
+  </p>
+{% endblock content %}

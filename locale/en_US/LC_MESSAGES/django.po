@@ -1,0 +1,589 @@
+# Translations for the restaurant project
+# Copyright (C) 2024 Masnaveev Kamil Albertovich
+# Masnaveev Kamil Albertovich <kmasnaveev@gmail.com>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-12 09:52+0300\n"
+"Language: en-US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: config/settings/base.py:31
+msgid "Russian"
+msgstr ""
+
+#: config/settings/base.py:32
+msgid "English"
+msgstr ""
+
+#: env/Lib/site-packages/click/_termui_impl.py:518
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr ""
+
+#: env/Lib/site-packages/click/_termui_impl.py:522
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:1120
+msgid "Aborted!"
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:1309
+#: env/Lib/site-packages/click/decorators.py:559
+msgid "Show this message and exit."
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:1340
+#: env/Lib/site-packages/click/core.py:1370
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:1387
+msgid "Options"
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:1413
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/Lib/site-packages/click/core.py:1429
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:1636
+msgid "Commands"
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:1668
+msgid "Missing command."
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:1746
+msgid "No such command {name!r}."
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:2310
+msgid "Value must be an iterable."
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:2331
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/Lib/site-packages/click/core.py:2778
+#, python-brace-format
+msgid "env var: {var}"
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:2808
+msgid "(dynamic)"
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:2821
+#, python-brace-format
+msgid "default: {default}"
+msgstr ""
+
+#: env/Lib/site-packages/click/core.py:2834
+msgid "required"
+msgstr ""
+
+#: env/Lib/site-packages/click/decorators.py:465
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr ""
+
+#: env/Lib/site-packages/click/decorators.py:528
+msgid "Show the version and exit."
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:44
+#: env/Lib/site-packages/click/exceptions.py:80
+#, python-brace-format
+msgid "Error: {message}"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:72
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:121
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:123
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:179
+msgid "Missing argument"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:181
+msgid "Missing option"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:183
+msgid "Missing parameter"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:185
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:192
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:212
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:224
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/Lib/site-packages/click/exceptions.py:262
+msgid "unknown error"
+msgstr ""
+
+#: env/Lib/site-packages/click/exceptions.py:269
+msgid "Could not open file {filename!r}: {message}"
+msgstr ""
+
+#: env/Lib/site-packages/click/parser.py:231
+msgid "Argument {name!r} takes {nargs} values."
+msgstr ""
+
+#: env/Lib/site-packages/click/parser.py:413
+msgid "Option {name!r} does not take a value."
+msgstr ""
+
+#: env/Lib/site-packages/click/parser.py:474
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/Lib/site-packages/click/shell_completion.py:319
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr ""
+
+#: env/Lib/site-packages/click/shell_completion.py:326
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr ""
+
+#: env/Lib/site-packages/click/termui.py:158
+msgid "Repeat for confirmation"
+msgstr ""
+
+#: env/Lib/site-packages/click/termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr ""
+
+#: env/Lib/site-packages/click/termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr ""
+
+#: env/Lib/site-packages/click/termui.py:187
+msgid "Error: The two entered values do not match."
+msgstr ""
+
+#: env/Lib/site-packages/click/termui.py:243
+msgid "Error: invalid input"
+msgstr ""
+
+#: env/Lib/site-packages/click/termui.py:773
+msgid "Press any key to continue..."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:266
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:298
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/Lib/site-packages/click/types.py:392
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/Lib/site-packages/click/types.py:414
+msgid "{value!r} is not a valid {number_type}."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:470
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:611
+msgid "{value!r} is not a valid boolean."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:635
+msgid "{value!r} is not a valid UUID."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:822
+msgid "file"
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:824
+msgid "directory"
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:826
+msgid "path"
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:877
+msgid "{name} {filename!r} does not exist."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:886
+msgid "{name} {filename!r} is a file."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:894
+#, python-brace-format
+msgid "{name} '{filename}' is a directory."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:903
+msgid "{name} {filename!r} is not readable."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:912
+msgid "{name} {filename!r} is not writable."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:921
+msgid "{name} {filename!r} is not executable."
+msgstr ""
+
+#: env/Lib/site-packages/click/types.py:988
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] ""
+msgstr[1] ""
+
+#: restaurant/templates/account/account_inactive.html:6
+#: restaurant/templates/account/account_inactive.html:9
+msgid "Account Inactive"
+msgstr ""
+
+#: restaurant/templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr ""
+
+#: restaurant/templates/account/email.html:8
+msgid "Account"
+msgstr ""
+
+#: restaurant/templates/account/email.html:11
+msgid "E-mail Addresses"
+msgstr ""
+
+#: restaurant/templates/account/email.html:13
+msgid "The following e-mail addresses are associated with your account:"
+msgstr ""
+
+#: restaurant/templates/account/email.html:28
+msgid "Verified"
+msgstr ""
+
+#: restaurant/templates/account/email.html:30
+msgid "Unverified"
+msgstr ""
+
+#: restaurant/templates/account/email.html:33
+msgid "Primary"
+msgstr ""
+
+#: restaurant/templates/account/email.html:41
+msgid "Make Primary"
+msgstr ""
+
+#: restaurant/templates/account/email.html:44
+msgid "Re-send Verification"
+msgstr ""
+
+#: restaurant/templates/account/email.html:47
+msgid "Remove"
+msgstr ""
+
+#: restaurant/templates/account/email.html:53
+msgid "Warning:"
+msgstr ""
+
+#: restaurant/templates/account/email.html:53
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+
+#: restaurant/templates/account/email.html:56
+msgid "Add E-mail Address"
+msgstr ""
+
+#: restaurant/templates/account/email.html:60
+msgid "Add E-mail"
+msgstr ""
+
+#: restaurant/templates/account/email.html:67
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr ""
+
+#: restaurant/templates/account/email_confirm.html:7
+#: restaurant/templates/account/email_confirm.html:10
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: restaurant/templates/account/email_confirm.html:14
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+
+#: restaurant/templates/account/email_confirm.html:19
+msgid "Confirm"
+msgstr ""
+
+#: restaurant/templates/account/email_confirm.html:24
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+
+#: restaurant/templates/account/login.html:8
+#: restaurant/templates/account/login.html:11
+#: restaurant/templates/account/login.html:50
+msgid "Sign In"
+msgstr ""
+
+#: restaurant/templates/account/login.html:15
+msgid "Please sign in with one of your existing third party accounts:"
+msgstr ""
+
+#: restaurant/templates/account/login.html:17
+#, python-format
+msgid ""
+"Or, <a href=\"%(signup_url)s\">sign up</a> for a %(site_name)s account and "
+"sign in below:"
+msgstr ""
+
+#: restaurant/templates/account/login.html:27
+msgid "or"
+msgstr ""
+
+#: restaurant/templates/account/login.html:33
+#, python-format
+msgid ""
+"If you have not created an account yet, then please <a "
+"href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+
+#: restaurant/templates/account/login.html:49
+msgid "Forgot Password?"
+msgstr ""
+
+#: restaurant/templates/account/logout.html:6
+#: restaurant/templates/account/logout.html:9
+#: restaurant/templates/account/logout.html:18
+msgid "Sign Out"
+msgstr ""
+
+#: restaurant/templates/account/logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: restaurant/templates/account/password_change.html:7
+#: restaurant/templates/account/password_change.html:10
+#: restaurant/templates/account/password_change.html:16
+#: restaurant/templates/account/password_reset_from_key.html:7
+#: restaurant/templates/account/password_reset_from_key.html:14
+#: restaurant/templates/account/password_reset_from_key_done.html:6
+#: restaurant/templates/account/password_reset_from_key_done.html:9
+msgid "Change Password"
+msgstr ""
+
+#: restaurant/templates/account/password_reset.html:8
+#: restaurant/templates/account/password_reset.html:11
+#: restaurant/templates/account/password_reset_done.html:7
+#: restaurant/templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr ""
+
+#: restaurant/templates/account/password_reset.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: restaurant/templates/account/password_reset.html:25
+msgid "Reset My Password"
+msgstr ""
+
+#: restaurant/templates/account/password_reset.html:27
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+
+#: restaurant/templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: restaurant/templates/account/password_reset_from_key.html:12
+msgid "Bad Token"
+msgstr ""
+
+#: restaurant/templates/account/password_reset_from_key.html:20
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: restaurant/templates/account/password_reset_from_key.html:30
+msgid "change password"
+msgstr ""
+
+#: restaurant/templates/account/password_reset_from_key.html:33
+#: restaurant/templates/account/password_reset_from_key_done.html:10
+msgid "Your password is now changed."
+msgstr ""
+
+#: restaurant/templates/account/password_set.html:7
+#: restaurant/templates/account/password_set.html:10
+#: restaurant/templates/account/password_set.html:19
+msgid "Set Password"
+msgstr ""
+
+#: restaurant/templates/account/signup.html:7
+msgid "Signup"
+msgstr ""
+
+#: restaurant/templates/account/signup.html:10
+#: restaurant/templates/account/signup.html:25
+msgid "Sign Up"
+msgstr ""
+
+#: restaurant/templates/account/signup.html:12
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: restaurant/templates/account/signup_closed.html:6
+#: restaurant/templates/account/signup_closed.html:9
+msgid "Sign Up Closed"
+msgstr ""
+
+#: restaurant/templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: restaurant/templates/account/verification_sent.html:6
+#: restaurant/templates/account/verification_sent.html:9
+#: restaurant/templates/account/verified_email_required.html:6
+#: restaurant/templates/account/verified_email_required.html:9
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: restaurant/templates/account/verification_sent.html:11
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: restaurant/templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+
+#: restaurant/templates/account/verified_email_required.html:17
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: restaurant/templates/account/verified_email_required.html:22
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+
+#: restaurant/users/admin.py:23
+msgid "Personal info"
+msgstr ""
+
+#: restaurant/users/admin.py:25
+msgid "Permissions"
+msgstr ""
+
+#: restaurant/users/admin.py:36
+msgid "Important dates"
+msgstr ""
+
+#: restaurant/users/apps.py:7
+msgid "Users"
+msgstr ""
+
+#: restaurant/users/forms.py:28 restaurant/users/tests/test_forms.py:35
+msgid "This email has already been taken."
+msgstr ""
+
+#: restaurant/users/models.py:17
+msgid "Name of User"
+msgstr ""
+
+#: restaurant/users/models.py:20
+msgid "email address"
+msgstr ""
+
+#: restaurant/users/tests/test_views.py:71 restaurant/users/views.py:23
+msgid "Information successfully updated"
+msgstr ""

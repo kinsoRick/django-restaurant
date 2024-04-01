@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container d-flex justify-content-center">
+    <div class="categories">
+      <div class="row">
+        {% for category in categories|dictsort:'priority' %}
+          <div class="col col-6 col-lg-3 px-1">
+            <div class="category">
+              <a href="{{ category.url }}">
+                <div>
+                  <img width="640"
+                       height="640"
+                       style="background: #1b1d1a"
+                       src=" {% if category.image %} {{ category.image.url }}  {% else %} /static/images/no_image.svg {% endif %} "
+                       class="card-img-top"
+                       loading="lazy"
+                       alt="{{ category.name }}" />
+                  <div class="category-name">
+                    <span>{{ category.name }}</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+        {% if user.is_superuser %}
+          <div class="col col-6 col-lg-3 px-1"
+               data-bs-toggle="modal"
+               data-bs-target="#createModal">
+            <div class="category">
+              <a href="#">
+                <div>
+                  <img width="640" height="640" class="plus-icon" alt="{{ category.name }}" />
+                  <div class="category-name">
+                    <span>Новая категория</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block modal %}
+  <div class="modal fade"
+       id="createModal"
+       tabindex="-1"
+       aria-labelledby="changeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeModalLabel">Добавить категорию</h1>
+          <button type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="categoryChangeCreate">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="id_name_category_create" class="form-label">Имя Категории</label>
+              <input type="text"
+                     class="form-control"
+                     id="id_name_category_create"
+                     name="name"
+                     value="" />
+            </div>
+            <div class="mb-3">
+              <label for="id_image_category_create" class="form-label">Изображение</label>
+              <input type="file"
+                     class="form-control"
+                     id="id_image_category_create"
+                     name="image"
+                     accept="image/*" />
+            </div>
+            <div class="mb-3">
+              <label for="id_url_category_create" class="form-label">Не прямая ссылка (пример /kitchen для категории кухня)</label>
+              <input type="text"
+                     class="form-control"
+                     id="id_url_category_create"
+                     name="url"
+                     value="/" />
+            </div>
+            <div class="mb-3">
+              <label for="id_priority_category_create" class="form-label">Приоритет</label>
+              <input type="number"
+                     min="0"
+                     class="form-control"
+                     id="id_priority_category_create"
+                     name="priority"
+                     value="" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-success"
+                  onclick="submitCategoryCreate()"
+                  data-bs-dismiss="modal">Создать</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock modal %}
+{% block inline_javascript %}
+  <script>
+    function submitCategoryCreate() {
+      const form = document.getElementById('categoryChangeCreate')
+      const formData = new FormData(form)
+
+      if (formData.get("image").size === 0) formData.delete("image");
+
+      fetch(`/api/categories/`, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          }
+        })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json()
+        })
+        .then((data) => {
+          location.reload()
+        })
+        .catch((error) => {
+          console.error('There was a problem with the fetch operation:', error)
+        })
+    }
+  </script>
+{% endblock inline_javascript %}
