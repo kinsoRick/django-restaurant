@@ -18,9 +18,18 @@ services:
     depends_on:
       - postgres
       - redis
-    env_file:
-      - ./.envs/.production/.django
-      - ./.envs/.production/.postgres
+    environment:
+      DJANGO_READ_DOT_ENV_FILE: ${DJANGO_READ_DOT_ENV_FILE}
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DJANGO_ADMIN_URL: ${DJANGO_ADMIN_URL}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+      DJANGO_SECURE_SSL_REDIRECT: ${DJANGO_SECURE_SSL_REDIRECT}
+      DJANGO_ACCOUNT_ALLOW_REGISTRATION: ${DJANGO_ACCOUNT_ALLOW_REGISTRATION}
+      WEB_CONCURRENCY: ${WEB_CONCURRENCY}
+      CELERY_FLOWER_USER: ${CELERY_FLOWER_USER}
+      CELERY_FLOWER_PASSWORD: ${CELERY_FLOWER_PASSWORD}
+      REDIS_URL: ${REDIS_URL}
     command: /start
 
   postgres:
